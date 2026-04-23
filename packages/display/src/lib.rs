@@ -277,11 +277,24 @@ impl DisplayRenderer {
             return;
         }
 
+        // Handle cases where stride != width
+        let mut padded_buf = Vec::new();
         if stride as u32 != width {
-            unimplemented!("stride != width")
+            let bpp = 4; // ARGB
+            for y in 0..height {
+                let sy = y as usize;
+                let start = sy * stride * bpp;
+                let end = start + (width as usize) * bpp;
+                if end <= buf.len() {
+                    padded_buf.extend_from_slice(&buf[start..end]);
+                }
+            }
         }
+        
+        let target_buf = if stride as u32 != width { &padded_buf } else { buf };
+        
 
-        let pixmap = PixmapRef::from_bytes(buf, width, height).expect("nonzero");
+        let pixmap = PixmapRef::from_bytes(target_buf, width, height).expect("nonzero");
 
         self.canvas.draw_pixmap(
             top_left.x,

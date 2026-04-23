@@ -550,18 +550,17 @@ pub unsafe extern "C" fn vexDisplayVBigString(
     format: *const c_char,
     args: VaList<'_, '_>,
 ) {
-    todo!("measure line height for non-normal text sizes");
-    // unsafe {
-    //     display_string_impl(
-    //         TextSize::Large,
-    //         Point2 {
-    //             x: 0,
-    //             y: nLineNumber * ?? + 34,
-    //         },
-    //         format,
-    //         args,
-    //     );
-    // }
+    DISPLAY.lock().set_text_size(BIG_TEXT);
+    unsafe {
+        display_string_impl(
+            Point2 {
+                x: 0,
+                y: nLineNumber * 20 + 34,
+            },
+            format,
+            args,
+        );
+    }
 }
 pub unsafe extern "C" fn vexDisplayVBigStringAt(
     xpos: i32,
@@ -590,14 +589,34 @@ pub unsafe extern "C" fn vexDisplayVCenteredString(
     format: *const c_char,
     args: VaList<'_, '_>,
 ) {
-    todo!();
+    DISPLAY.lock().set_text_size(NORMAL_TEXT);
+    unsafe {
+        display_string_impl(
+            Point2 {
+                x: 240, // 480 / 2
+                y: nLineNumber * 20 + 34,
+            },
+            format,
+            args,
+        );
+    }
 }
 pub unsafe extern "C" fn vexDisplayVBigCenteredString(
     nLineNumber: i32,
     format: *const c_char,
     args: VaList<'_, '_>,
 ) {
-    todo!("measure line height for non-normal text sizes");
+    DISPLAY.lock().set_text_size(BIG_TEXT);
+    unsafe {
+        display_string_impl(
+            Point2 {
+                x: 240, // 480 / 2
+                y: nLineNumber * 20 + 34, // inaccurate but good enough for now
+            },
+            format,
+            args,
+        );
+    }
 }
 
 unsafe fn display_string_impl(point: Point2<i32>, format: *const c_char, mut args: VaList<'_, '_>) {

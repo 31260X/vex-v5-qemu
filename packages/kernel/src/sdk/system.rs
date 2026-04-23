@@ -13,13 +13,14 @@ use crate::{
     hardware::{
         gic::InterruptTrigger,
         timers::{global_timer_counter, PrivateTimer, WatchdogTimerMode},
-    }, peripherals::{
+    },
+    peripherals::{
         timer_interrupt_handler, GIC, PERIPHCLK, PRIVATE_TIMER, SYSTEM_TIME, WATCHDOG_TIMER,
-    }, protocol::exit, sdk::draw_error_box, vectors::undefined_instruction_handler, xil::{
-        gic::XSCUGIC_MAX_NUM_INTR_INPUTS,
-        timer::XScuTimer,
-        XST_FAILURE, XST_SUCCESS,
-    }
+    },
+    protocol::exit,
+    sdk::draw_error_box,
+    vectors::undefined_instruction_handler,
+    xil::{gic::XSCUGIC_MAX_NUM_INTR_INPUTS, timer::XScuTimer, XST_FAILURE, XST_SUCCESS},
 };
 
 extern "C" {

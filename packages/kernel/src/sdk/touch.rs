@@ -1,8 +1,12 @@
 //! Brain Screen Touchscreen
 
-use crate::sync::Mutex;
 use vex_sdk::*;
-use vex_v5_qemu_protocol::{geometry::Point2, touch::{TouchData, TouchEvent}};
+use vex_v5_qemu_protocol::{
+    geometry::Point2,
+    touch::{TouchData, TouchEvent},
+};
+
+use crate::sync::Mutex;
 
 pub static TOUCH: Mutex<Touchscreen> = Mutex::new(Touchscreen::new());
 

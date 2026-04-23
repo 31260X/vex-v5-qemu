@@ -22,7 +22,10 @@ use peripherals::{GIC, PRIVATE_TIMER, UART1, WATCHDOG_TIMER};
 use sdk::vexSystemLinkAddrGet;
 use vex_v5_qemu_protocol::{code_signature::CodeSignature, HostBoundPacket};
 
-use crate::{protocol::exit, sdk::{draw_error_box, vexTasksRun}};
+use crate::{
+    protocol::exit,
+    sdk::{draw_error_box, vexTasksRun},
+};
 
 extern "C" {
     /// Entrypoint of the user program. (located at 0x03800020)

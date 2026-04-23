@@ -17,7 +17,7 @@ pub unsafe extern "C" fn vexDeviceDistanceDistanceGet(device: V5_DeviceT) -> u32
                 object.distance
             } else {
                 9999
-            }
+            };
         }
     }
 
@@ -62,7 +62,7 @@ pub unsafe extern "C" fn vexDeviceDistanceObjectSizeGet(device: V5_DeviceT) -> i
                 object.relative_size as _
             } else {
                 -1
-            }
+            };
         }
     }
 

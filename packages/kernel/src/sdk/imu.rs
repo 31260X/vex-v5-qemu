@@ -4,7 +4,9 @@ use core::ffi::c_double;
 
 use vex_sdk::*;
 
-pub extern "C" fn vexDeviceImuReset(device: V5_DeviceT) {}
+pub extern "C" fn vexDeviceImuReset(device: V5_DeviceT) {
+    log::debug!("vexDeviceImuReset called");
+}
 pub extern "C" fn vexDeviceImuHeadingGet(device: V5_DeviceT) -> c_double {
     Default::default()
 }
@@ -12,18 +14,29 @@ pub extern "C" fn vexDeviceImuDegreesGet(device: V5_DeviceT) -> c_double {
     Default::default()
 }
 pub extern "C" fn vexDeviceImuQuaternionGet(device: V5_DeviceT, data: *mut V5_DeviceImuQuaternion) {
+    log::debug!("vexDeviceImuQuaternionGet called with data: {:?}", data);
 }
-pub extern "C" fn vexDeviceImuAttitudeGet(device: V5_DeviceT, data: *mut V5_DeviceImuAttitude) {}
-pub extern "C" fn vexDeviceImuRawGyroGet(device: V5_DeviceT, data: *mut V5_DeviceImuRaw) {}
-pub extern "C" fn vexDeviceImuRawAccelGet(device: V5_DeviceT, data: *mut V5_DeviceImuRaw) {}
+pub extern "C" fn vexDeviceImuAttitudeGet(device: V5_DeviceT, data: *mut V5_DeviceImuAttitude) {
+    log::debug!("vexDeviceImuAttitudeGet called with data: {:?}", data);
+}
+pub extern "C" fn vexDeviceImuRawGyroGet(device: V5_DeviceT, data: *mut V5_DeviceImuRaw) {
+    log::debug!("vexDeviceImuRawGyroGet called with data: {:?}", data);
+}
+pub extern "C" fn vexDeviceImuRawAccelGet(device: V5_DeviceT, data: *mut V5_DeviceImuRaw) {
+    log::debug!("vexDeviceImuRawAccelGet called with data: {:?}", data);
+}
 pub extern "C" fn vexDeviceImuStatusGet(device: V5_DeviceT) -> u32 {
     Default::default()
 }
 pub extern "C" fn vexDeviceImuTemperatureGet(device: V5_DeviceT) -> c_double {
     Default::default()
 }
-pub extern "C" fn vexDeviceImuModeSet(device: V5_DeviceT, mode: u32) {}
+pub extern "C" fn vexDeviceImuModeSet(device: V5_DeviceT, mode: u32) {
+    log::debug!("vexDeviceImuModeSet called with mode: {:?}", mode);
+}
 pub extern "C" fn vexDeviceImuModeGet(device: V5_DeviceT) -> u32 {
     Default::default()
 }
-pub extern "C" fn vexDeviceImuDataRateSet(device: V5_DeviceT, rate: u32) {}
+pub extern "C" fn vexDeviceImuDataRateSet(device: V5_DeviceT, rate: u32) {
+    log::debug!("vexDeviceImuDataRateSet called with rate: {:?}", rate);
+}
