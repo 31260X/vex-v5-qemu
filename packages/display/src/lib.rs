@@ -290,11 +290,17 @@ impl DisplayRenderer {
                 }
             }
         }
-        
-        let target_buf = if stride as u32 != width { &padded_buf } else { buf };
-        
 
-        let pixmap = PixmapRef::from_bytes(target_buf, width, height).expect("nonzero");
+        let expected_len = (width * height * 4) as usize;
+        let mut final_buf = if stride as u32 != width { padded_buf } else { buf.to_vec() };
+        if final_buf.len() != expected_len {
+            final_buf.resize(expected_len, 0);
+        }
+
+        let pixmap = match PixmapRef::from_bytes(&final_buf, width, height) {
+            Some(p) => p,
+            None => { return; } // just return instead of crash
+        };
 
         self.canvas.draw_pixmap(
             top_left.x,
