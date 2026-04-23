@@ -276,20 +276,7 @@ impl DisplayRenderer {
         if height == 0 || width == 0 {
             return;
         }
-
-        // Handle cases where stride != width
-        let mut padded_buf = Vec::new();
-        if stride as u32 != width {
-            let bpp = 4; // ARGB
-            for y in 0..height {
-                let sy = y as usize;
-                let start = sy * stride * bpp;
-                let end = start + (width as usize) * bpp;
-                if end <= buf.len() {
-                    padded_buf.extend_from_slice(&buf[start..end]);
-                }
-            }
-        }
+        let padded_buf = buf.to_vec();
 
         let expected_len = (width * height * 4) as usize;
         let mut final_buf = if stride as u32 != width { padded_buf } else { buf.to_vec() };
@@ -299,7 +286,7 @@ impl DisplayRenderer {
 
         let pixmap = match PixmapRef::from_bytes(&final_buf, width, height) {
             Some(p) => p,
-            None => { return; } // just return instead of crash
+            None => { return; } // return instead of crash
         };
 
         self.canvas.draw_pixmap(
